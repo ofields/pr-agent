@@ -940,14 +940,17 @@ def is_value_no(value):
 
 def process_description(description_full: str):
     split_str = "### **Changes walkthrough** 📝"
-    description_split = description_full.split(split_str)
-    base_description_str = description_split[0]
-    changes_walkthrough_str = ""
+    changes_walkthrough_str = None
+    base_description_str = None
     files = []
-    if len(description_split) > 1:
-        changes_walkthrough_str = description_split[1]
+    if description_full is not None:
+        description_split = description_full.split(split_str)
+        if len(description_split) > 1:
+            base_description_str = description_split[0]
+            changes_walkthrough_str = description_split[1]
     else:
         get_logger().debug("No changes walkthrough found")
+
 
     try:
         if changes_walkthrough_str:
